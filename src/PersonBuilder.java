@@ -18,18 +18,24 @@ public class PersonBuilder {
 
 
     public PersonBuilder setName(String name) {
-        if("".equals(name)) throw new RuntimeException("укажите имя");
+        if("".equals(name)) {
+            throw new IllegalStateException("укажите имя");
+        }
         this.name=name;
     return this;}
 
     public PersonBuilder setSurname(String surname) {
-        if ("".equals(surname)) throw new RuntimeException("Укажите фамилию");
+        if ("".equals(surname)){
+            throw new IllegalStateException("Укажите фамилию");
+        }
         this.surname = surname;
         return this;
     }
 
     public PersonBuilder setAge(int age) {
-        if (age < 0) throw new RuntimeException("Укажите возраст");
+        if (age < 0) {
+            throw new IllegalArgumentException("Укажите возраст");
+        }
         this.age = OptionalInt.of(age);
         return this;
     }
@@ -42,8 +48,9 @@ public class PersonBuilder {
 
 
     public Person build() {
-        if (name == null || surname == null || age == null || address == null)
-            throw new RuntimeException("Не заполнены нужные поля");
+        if (name == null || surname == null || age == null || address == null) {
+            throw new IllegalStateException("Не заполнены нужные поля");
+        }
         return new Person(name, surname, age, address);
     }
 }
